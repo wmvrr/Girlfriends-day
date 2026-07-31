@@ -2,200 +2,413 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>LOVE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Final Question</title>
+
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: #ffe6f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
 
-    .container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 1;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    .pink-box {
-        background: #ffb6c1;
-        padding: 40px;
-        border-radius: 22px;
-        width: 440px;
-        font-size: 22px;
-        font-weight: bold;
-        color: #7a003c;
-        margin-bottom: 30px;
-        line-height: 1.6;
-    }
+body{
 
-    .buttons {
-        width: 440px;
-        display: flex;
-        justify-content: center;
-        gap: 14px;
-    }
+    height:100vh;
 
-    .btn {
-        height: 75px;
-        width: 210px;
-        border-radius: 16px;
-        border: none;
-        font-size: 22px;
-        font-weight: bold;
-        cursor: pointer;
-        background: #ff4d4d;
-        color: black;
-        transition: transform 0.2s ease;
-    }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    .btn:active {
-        transform: scale(0.95);
-    }
+    background:#c8a97e;
 
-    /* WARNING FLASH */
-    .flash {
-        position: fixed;
-        inset: 0;
-        background: rgba(255, 0, 0, 0.6);
-        animation: flash 0.15s alternate 6;
-        z-index: 5;
-    }
+    font-family:'Cormorant Garamond',serif;
 
-    @keyframes flash {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+    overflow:hidden;
 
-    /* NOT AN OPTION BOX */
-    .warning-box {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: black;
-        color: white;
-        padding: 40px 60px;
-        font-size: 42px;
-        font-weight: bold;
-        border-radius: 20px;
-        z-index: 10;
-        animation: popIn 0.3s ease;
-    }
+}
 
-    @keyframes popIn {
-        from { transform: translate(-50%, -50%) scale(0.7); }
-        to { transform: translate(-50%, -50%) scale(1); }
-    }
+/* Paper texture */
 
-    /* HEARTS */
-    .heart {
-        position: fixed;
-        font-size: 26px;
-        animation: floatUp 3s linear forwards;
-        z-index: 20;
-    }
+body::before{
 
-    @keyframes floatUp {
-        from { transform: translateY(0); opacity: 1; }
-        to { transform: translateY(-800px); opacity: 0; }
-    }
+    content:"";
 
-    /* CONFETTI */
-    .confetti {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        animation: fall 3s linear forwards;
-        z-index: 20;
-    }
+    position:fixed;
 
-    @keyframes fall {
-        from { transform: translateY(-50px); opacity: 1; }
-        to { transform: translateY(800px); opacity: 0; }
-    }
+    inset:0;
+
+    background:
+    radial-gradient(circle at 20% 20%,rgba(90,60,30,.08),transparent 35%),
+    radial-gradient(circle at 80% 70%,rgba(90,60,30,.08),transparent 35%),
+    repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,.02),
+        rgba(255,255,255,.02) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+
+    pointer-events:none;
+
+}
+
+.container{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    z-index:2;
+
+}
+
+/* Parchment */
+
+.parchment{
+
+    width:600px;
+    max-width:90%;
+
+    background:#f3e2b8;
+
+    border:2px solid #8b5a2b;
+
+    border-radius:12px;
+
+    padding:45px;
+
+    color:#4a2b18;
+
+    text-align:center;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.12),
+        0 12px 30px rgba(0,0,0,.28);
+
+}
+
+.parchment h1{
+
+    font-family:'UnifrakturCook',cursive;
+
+    font-size:40px;
+
+    margin-bottom:25px;
+
+    color:#5a2f0d;
+
+}
+
+.parchment p{
+
+    font-size:28px;
+
+    line-height:1.7;
+
+}
+
+/* Buttons */
+
+.buttons{
+
+    margin-top:35px;
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.btn{
+
+    padding:15px 40px;
+
+    background:#4b2e16;
+
+    color:#f3e2b8;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:24px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.3);
+
+}
+
+.btn:hover{
+
+    background:#654321;
+
+    transform:translateY(-3px);
+
+}
+
+/* Flash */
+
+.flash{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(120,0,0,.45);
+
+    animation:flash .15s alternate 8;
+
+    z-index:50;
+
+}
+
+@keyframes flash{
+
+from{opacity:0;}
+
+to{opacity:1;}
+
+}
+
+/* Warning */
+
+.warning-box{
+
+    position:fixed;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:#4b2e16;
+
+    color:#f3e2b8;
+
+    border:3px solid #f3e2b8;
+
+    padding:35px 55px;
+
+    border-radius:12px;
+
+    font-family:'UnifrakturCook',cursive;
+
+    font-size:46px;
+
+    z-index:60;
+
+}
+
+/* Hearts */
+
+.heart{
+
+    position:fixed;
+
+    font-size:30px;
+
+    animation:floatUp 3s linear forwards;
+
+    z-index:100;
+
+}
+
+@keyframes floatUp{
+
+from{
+
+transform:translateY(0);
+
+opacity:1;
+
+}
+
+to{
+
+transform:translateY(-110vh);
+
+opacity:0;
+
+}
+
+}
+
+/* Confetti */
+
+.confetti{
+
+    position:fixed;
+
+    width:10px;
+
+    height:10px;
+
+    animation:fall 3s linear forwards;
+
+    z-index:100;
+
+}
+
+@keyframes fall{
+
+from{
+
+transform:translateY(-40px);
+
+opacity:1;
+
+}
+
+to{
+
+transform:translateY(110vh);
+
+opacity:0;
+
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <div class="pink-box">
-        Are you going to spend the rest of your life with this devoted paramour of yours?
-    </div>
 
-    <div class="buttons">
-        <button id="yesBtn" class="btn">YES!</button>
-        <button id="noBtn" class="btn">NO</button>
-    </div>
+<div class="parchment">
+
+<h1>The Final Petition</h1>
+
+<p>
+
+Wilt Thou remain beside thy devoted admirer
+for all the days that Fate shall grant us?
+
+</p>
+
+</div>
+
+<div class="buttons">
+
+<button id="yesBtn" class="btn">
+YES
+</button>
+
+<button id="noBtn" class="btn">
+NO
+</button>
+
+</div>
+
 </div>
 
 <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
 
-    noBtn.addEventListener("click", () => {
-        // Flash warning
-        const flash = document.createElement("div");
-        flash.className = "flash";
-        document.body.appendChild(flash);
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
 
-        // Warning box
-        const warning = document.createElement("div");
-        warning.className = "warning-box";
-        warning.innerText = "NOT AN OPTION";
-        document.body.appendChild(warning);
+noBtn.addEventListener("click",()=>{
 
-        // Remove after delay
-        setTimeout(() => {
-            flash.remove();
-            warning.remove();
-        }, 1200);
-    });
+const flash=document.createElement("div");
 
-    yesBtn.addEventListener("click", () => {
-        hearts();
-        confetti();
+flash.className="flash";
 
-        setTimeout(() => {
-            window.location.href = "mwah.html";
-        }, 3000);
-    });
+document.body.appendChild(flash);
 
-    function hearts() {
-        for (let i = 0; i < 40; i++) {
-            setTimeout(() => {
-                const h = document.createElement("div");
-                h.className = "heart";
-                h.innerText = "💖";
-                h.style.left = Math.random() * 100 + "vw";
-                h.style.bottom = "0";
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 3000);
-            }, i * 80);
-        }
-    }
+const warning=document.createElement("div");
 
-    function confetti() {
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const c = document.createElement("div");
-                c.className = "confetti";
-                c.style.left = Math.random() * 100 + "vw";
-                c.style.background =
-                    `hsl(${Math.random() * 360}, 100%, 60%)`;
-                document.body.appendChild(c);
-                setTimeout(() => c.remove(), 3000);
-            }, i * 60);
-        }
-    }
+warning.className="warning-box";
+
+warning.innerText="THAT IS NO CHOICE.";
+
+document.body.appendChild(warning);
+
+setTimeout(()=>{
+
+flash.remove();
+
+warning.remove();
+
+},1200);
+
+});
+
+yesBtn.addEventListener("click",()=>{
+
+hearts();
+
+confetti();
+
+setTimeout(()=>{
+
+window.location.href="mwah.html";
+
+},3000);
+
+});
+
+function hearts(){
+
+for(let i=0;i<45;i++){
+
+setTimeout(()=>{
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.bottom="-30px";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),3000);
+
+},i*70);
+
+}
+
+}
+
+function confetti(){
+
+const colors=["#b22222","#daa520","#f3e2b8","#8b5a2b","#ffffff"];
+
+for(let i=0;i<70;i++){
+
+setTimeout(()=>{
+
+const c=document.createElement("div");
+
+c.className="confetti";
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),3000);
+
+},i*40);
+
+}
+
+}
+
 </script>
 
 </body>
