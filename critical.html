@@ -172,45 +172,54 @@ Should Your Grace deem me worthy, I beseech you to continue reading what follows
 </div>
 <script>
 
-const noButton=document.querySelector(".no-btn");
+const noButton = document.querySelector(".no-btn");
 
-noButton.addEventListener("click",()=>{
+noButton.addEventListener("click", () => {
 
-    for(let i=0;i<70;i++){
+    const emojis = ["🥺","😭","💔","😔","😢","🥹"];
 
-        const emoji=document.createElement("div");
+    for(let i = 0; i < 80; i++){
 
-        emoji.innerHTML="🥺";
+        const emoji = document.createElement("div");
 
-        emoji.style.position="fixed";
+        emoji.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
 
-        emoji.style.left=Math.random()*100+"vw";
+        emoji.style.position = "fixed";
 
-        emoji.style.bottom="-50px";
+        // Random starting position
+        emoji.style.left = Math.random()*100 + "vw";
+        emoji.style.top = Math.random()*100 + "vh";
 
-        emoji.style.fontSize=(20+Math.random()*30)+"px";
+        emoji.style.fontSize = (20 + Math.random()*30) + "px";
 
-        emoji.style.pointerEvents="none";
+        emoji.style.pointerEvents = "none";
 
-        emoji.style.transition="transform 6s linear, opacity 6s";
+        emoji.style.opacity = "1";
 
         document.body.appendChild(emoji);
 
+        // Random movement
+        const moveX = (Math.random()-0.5)*600;
+        const moveY = (Math.random()-0.5)*600;
+        const rotate = Math.random()*720-360;
+
+        emoji.animate([
+            {
+                transform: "translate(0px,0px) rotate(0deg)",
+                opacity:1
+            },
+            {
+                transform:`translate(${moveX}px, ${moveY}px) rotate(${rotate}deg)`,
+                opacity:0
+            }
+        ],{
+            duration:2500 + Math.random()*2000,
+            easing:"ease-out"
+        });
+
         setTimeout(()=>{
-
-            emoji.style.transform=
-            `translateY(-120vh)
-             rotate(${Math.random()*360}deg)`;
-
-            emoji.style.opacity="0";
-
-        },20);
-
-        setTimeout(()=>{
-
             emoji.remove();
-
-        },6000);
+        },4500);
 
     }
 
