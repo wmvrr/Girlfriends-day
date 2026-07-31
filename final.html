@@ -1,206 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Stabilized!</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f5f5f5;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stabilized!</title>
 
-        /* Container for pink box + button */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 1;
-        }
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 
-        /* Pink box */
-        .alert-box {
-            background-color: pink;
-            color: black;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 22px;
-            margin-top: 20px;
-            opacity: 0; /* appear later */
-            transition: opacity 1s ease;
-        }
+<style>
 
-        /* Red Yayyy button */
-        .yay-btn {
-            background-color: red;
-            color: black;
-            padding: 15px 40px;
-            border-radius: 12px;
-            font-size: 20px;
-            border: none;
-            cursor: pointer;
-            margin-top: 40px; /* lower position */
-            opacity: 0; /* appear later */
-            transition: opacity 1s ease;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .yay-btn:hover {
-            opacity: 0.85;
-        }
+html,body{
 
-        /* Hearts style */
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            color: #FF1493;
-            opacity: 0.8;
-            animation: floatUp linear forwards;
-        }
+    width:100%;
+    height:100%;
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-800px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-        /* Confetti canvas */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 9999;
-        }
-    </style>
+    background:#c8a97e;
+
+    font-family:'Cormorant Garamond',serif;
+
+    overflow:hidden;
+
+}
+
+/* Parchment texture */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 20% 20%,rgba(90,60,30,.08),transparent 35%),
+
+    radial-gradient(circle at 80% 70%,rgba(90,60,30,.08),transparent 35%),
+
+    repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,.02),
+        rgba(255,255,255,.02) 2px,
+        transparent 2px,
+        transparent 6px
+    );
+
+    pointer-events:none;
+
+}
+
+/* Container */
+
+.container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* Message Box */
+
+.alert-box{
+
+    background:#f3e2b8;
+
+    color:#4a2b18;
+
+    padding:40px;
+
+    width:560px;
+
+    max-width:90%;
+
+    border:2px solid #8b5a2b;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-family:'UnifrakturCook',cursive;
+
+    font-size:34px;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.12),
+        0 12px 30px rgba(0,0,0,.28);
+
+    opacity:0;
+
+    transition:opacity 1s ease;
+
+}
+
+/* Button */
+
+.yay-btn{
+
+    margin-top:35px;
+
+    background:#4b2e16;
+
+    color:#f3e2b8;
+
+    padding:15px 45px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:24px;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.35);
+
+    transition:.3s;
+
+    opacity:0;
+
+}
+
+.yay-btn:hover{
+
+    background:#654321;
+
+    transform:translateY(-3px);
+
+}
+
+/* Floating Hearts */
+
+.heart{
+
+    position:absolute;
+
+    pointer-events:none;
+
+    animation:floatUp linear forwards;
+
+}
+
+@keyframes floatUp{
+
+    0%{
+
+        transform:translateY(0) rotate(0deg);
+
+        opacity:.9;
+
+    }
+
+    100%{
+
+        transform:translateY(-120vh) rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+
+/* Confetti Canvas */
+
+canvas{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="alert-box" id="alertBox">
-            PHEW! Atleast I did not get rejected.
-        </div>
+<div class="container">
 
-        <button class="yay-btn" id="yayBtn">Yayyy</button>
+    <div class="alert-box" id="alertBox">
+
+        Praise be! This humble heart hath escaped rejection.
+
     </div>
 
-    <canvas id="confetti"></canvas>
+    <button class="yay-btn" id="yayBtn">
 
-    <script>
-        const alertBox = document.getElementById('alertBox');
-        const yayBtn = document.getElementById('yayBtn');
+        Huzzah!
 
-        // Step 1: show pink box and button after short delay
-        setTimeout(() => {
-            alertBox.style.opacity = 1;
-            yayBtn.style.opacity = 1;
+    </button>
 
-            // Step 2: start hearts floating
-            generateHearts(30); // number of hearts
-        }, 500);
+</div>
 
-        // Step 3: Yayyy button click → confetti + redirect
-        yayBtn.addEventListener('click', () => {
+<canvas id="confetti"></canvas>
+
+<script>
+
+const alertBox=document.getElementById("alertBox");
+const yayBtn=document.getElementById("yayBtn");
+
+/* Show content */
+
+setTimeout(()=>{
+
+    alertBox.style.opacity=1;
+
+    yayBtn.style.opacity=1;
+
+    generateHearts(35);
+
+},500);
+
+/* Button */
+
+yayBtn.addEventListener("click",()=>{
+
     launchConfetti();
 
-    // redirect after 2 seconds to the diagnosis page
-    setTimeout(() => {
-        window.location.href = 'diagnosis.html';
-    }, 2000);
+    setTimeout(()=>{
+
+        window.location.href="diagnosis.html";
+
+    },2000);
+
 });
 
+/* Hearts */
 
-        // Function to generate hearts
-        function generateHearts(count) {
-            for (let i = 0; i < count; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerText = '❤️';
-                heart.style.left = Math.random() * window.innerWidth + 'px';
-                heart.style.fontSize = (10 + Math.random() * 30) + 'px';
-                heart.style.animationDuration = (3 + Math.random() * 5) + 's';
-                heart.style.animationDelay = Math.random() + 's';
-                document.body.appendChild(heart);
+function generateHearts(count){
 
-                // remove heart after animation
-                heart.addEventListener('animationend', () => {
-                    heart.remove();
-                    // optionally, create a new heart to keep hearts continuous
-                    generateHearts(1);
-                });
+    for(let i=0;i<count;i++){
+
+        const heart=document.createElement("div");
+
+        heart.className="heart";
+
+        heart.innerHTML=Math.random()>0.5?"❤️":"💖";
+
+        heart.style.left=Math.random()*window.innerWidth+"px";
+
+        heart.style.bottom="-40px";
+
+        heart.style.fontSize=(14+Math.random()*26)+"px";
+
+        heart.style.animationDuration=(4+Math.random()*3)+"s";
+
+        heart.style.animationDelay=Math.random()*2+"s";
+
+        document.body.appendChild(heart);
+
+        heart.addEventListener("animationend",()=>{
+
+            heart.remove();
+
+            generateHearts(1);
+
+        });
+
+    }
+
+}
+
+/* Confetti */
+
+function launchConfetti(){
+
+    const canvas=document.getElementById("confetti");
+
+    const ctx=canvas.getContext("2d");
+
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+
+    const pieces=[];
+
+    for(let i=0;i<180;i++){
+
+        pieces.push({
+
+            x:Math.random()*canvas.width,
+
+            y:Math.random()*canvas.height-canvas.height,
+
+            r:Math.random()*6+4,
+
+            d:Math.random()*180,
+
+            color:`hsl(${Math.random()*360},100%,50%)`,
+
+            tilt:Math.random()*10-10,
+
+            tiltAngle:0,
+
+            tiltSpeed:Math.random()*0.07+0.05
+
+        });
+
+    }
+
+    function draw(){
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        pieces.forEach(p=>{
+
+            ctx.beginPath();
+
+            ctx.lineWidth=p.r;
+
+            ctx.strokeStyle=p.color;
+
+            ctx.moveTo(p.x+p.tilt,p.y);
+
+            ctx.lineTo(p.x,p.y+p.tilt);
+
+            ctx.stroke();
+
+        });
+
+        update();
+
+    }
+
+    function update(){
+
+        pieces.forEach(p=>{
+
+            p.tiltAngle+=p.tiltSpeed;
+
+            p.y+=(Math.cos(p.d)+3+p.r)/2;
+
+            p.x+=Math.sin(p.d);
+
+            p.tilt=Math.sin(p.tiltAngle)*15;
+
+            if(p.y>canvas.height){
+
+                p.y=-20;
+
+                p.x=Math.random()*canvas.width;
+
             }
-        }
 
-        // Confetti JS
-        function launchConfetti() {
-            const canvas = document.getElementById('confetti');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        });
 
-            const confettiCount = 150;
-            const confetti = [];
+    }
 
-            for (let i = 0; i < confettiCount; i++) {
-                confetti.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    r: Math.random() * 6 + 4,
-                    d: Math.random() * confettiCount,
-                    color: `hsl(${Math.random()*360}, 100%, 50%)`,
-                    tilt: Math.random() * 10 - 10,
-                    tiltAngleIncrement: Math.random() * 0.07 + 0.05,
-                    tiltAngle: 0
-                });
-            }
+    const animation=setInterval(draw,20);
 
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                confetti.forEach(c => {
-                    ctx.beginPath();
-                    ctx.lineWidth = c.r;
-                    ctx.strokeStyle = c.color;
-                    ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
-                    ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
-                    ctx.stroke();
-                });
-                update();
-            }
+    setTimeout(()=>{
 
-            function update() {
-                confetti.forEach(c => {
-                    c.tiltAngle += c.tiltAngleIncrement;
-                    c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
-                    c.x += Math.sin(c.d);
-                    c.tilt = Math.sin(c.tiltAngle) * 15;
+        clearInterval(animation);
 
-                    if (c.y > canvas.height) {
-                        c.y = -10;
-                        c.x = Math.random() * canvas.width;
-                    }
-                });
-            }
+        ctx.clearRect(0,0,canvas.width,canvas.height);
 
-            let anim = setInterval(draw, 20);
+    },2000);
 
-            // stop confetti after 2 seconds
-            setTimeout(() => {
-                clearInterval(anim);
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-            }, 2000);
-        }
-    </script>
+}
+
+</script>
 
 </body>
 </html>
