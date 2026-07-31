@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Audience</title>
+    <title>Patient Credentials</title>
     <style>
         body {
             display: flex;
@@ -15,7 +15,7 @@
         }
 
         .box {
-            background-color: brown;
+            background-color: pink;
             color: black;
             width: 320px;
             padding: 20px;
@@ -25,37 +25,66 @@
             font-size: 20px;
         }
 
-        .diagnose-btn {
-            margin-top: 15px;
-            background-color: red;
-            color: black;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-        }
+      .buttons{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
 
-        .diagnose-btn:hover {
-            opacity: 0.85;
+.diagnose-btn,
+.no-btn{
+
+    background-color:red;
+    color:black;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    text-decoration:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    box-shadow:0 3px 6px rgba(0,0,0,.2);
+
+    transition:.25s;
+}
+
+.diagnose-btn:hover,
+.no-btn:hover{
+
+    opacity:.85;
+    transform:translateY(-2px);
+
+}
+
+.no-btn{
+
+    background:#555;
+    color:white;
+
+}
         }
     </style>
 </head>
 <body>
 
     <div class="box">
-        <h2>My Queen</h2>
-        <p>Forgive my barging at your sacred door </p>
-         <p>May I be allowed to speak?</p>
+        <h2>Patient Credentials</h2>
+        <p>Pardon me for barging at your door</p>
+         <p>May I speak?</p>
        
     
     </div>
 
 <div class="buttons">
 
-    <a href="symptoms.html" class="Speak.btn">
-        Speak
+    <a href="symptoms.html" class="diagnose-btn">
+        Diagnose
     </a>
 
     <button class="no-btn" onclick="showWarning()">
@@ -63,6 +92,14 @@
     </button>
 
 </div>
+<script>
 
+function showWarning(){
+
+    alert("⚠️ You're trying to silence your baby?");
+
+}
+
+</script>
 </body>
 </html>
