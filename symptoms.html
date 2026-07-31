@@ -52,142 +52,135 @@
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
         }
 
-      .scroll-container{
+    .scroll-link{
 
     margin-top:35px;
+
+    text-decoration:none;
+
+}
+
+.rolled-scroll{
+
+    position:relative;
+
+    width:220px;
+
+    height:70px;
 
     display:flex;
 
     justify-content:center;
 
-}
-
-.scroll{
-
-    display:flex;
-
-    flex-direction:column;
-
     align-items:center;
-
-}
-
-.scroll-top,
-.scroll-bottom{
-
-    width:280px;
-
-    height:22px;
-
-    background:#8b5a2b;
-
-    border-radius:20px;
-
-    box-shadow:
-        inset 0 2px 5px rgba(255,255,255,.25),
-        inset 0 -3px 6px rgba(0,0,0,.35);
-
-}
-
-.paper{
-
-    width:280px;
-
-    background:#f7edd2;
-
-    color:#3d2b1f;
-
-    padding:20px;
-
-    text-align:center;
-
-    font-family:Georgia,serif;
-
-    border-left:4px solid #8b5a2b;
-
-    border-right:4px solid #8b5a2b;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
-
-}
-
-.paper h3{
-
-    margin-bottom:12px;
-
-}
-
-.paper p{
-
-    line-height:1.6;
-
-}
-
-.ribbon{
-
-    display:inline-block;
-
-    margin-top:20px;
-
-    padding:12px 28px;
-
-    background:#a8002b;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-    border-radius:0 0 12px 12px;
-
-    position:relative;
 
     transition:.3s;
 
 }
 
-.ribbon::before,
+.rolled-scroll:hover{
+
+    transform:scale(1.05);
+
+}
+
+.paper{
+
+    width:150px;
+
+    height:45px;
+
+    background:#f5e7bf;
+
+    border-top:2px solid #caa66d;
+    border-bottom:2px solid #caa66d;
+
+    box-shadow:
+        inset 0 0 10px rgba(0,0,0,.12);
+
+}
+
+.roll-left,
+.roll-right{
+
+    width:35px;
+    height:50px;
+
+    background:
+    linear-gradient(
+    to right,
+    #8b5a2b,
+    #d2a679,
+    #8b5a2b
+    );
+
+    border-radius:50%;
+
+    box-shadow:
+    inset 0 0 8px rgba(255,255,255,.4),
+    inset 0 0 10px rgba(0,0,0,.35);
+
+}
+
+.roll-left{
+
+    margin-right:-8px;
+
+}
+
+.roll-right{
+
+    margin-left:-8px;
+
+}
+
+.ribbon{
+
+    position:absolute;
+
+    background:#a40028;
+
+    color:white;
+
+    padding:10px 28px;
+
+    border-radius:4px;
+
+    font-weight:bold;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.35);
+
+}
+
+.ribbon::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-12px;
+    top:0;
+
+    border-top:18px solid transparent;
+    border-bottom:18px solid transparent;
+    border-right:12px solid #7b001d;
+
+}
+
 .ribbon::after{
 
     content:"";
 
     position:absolute;
 
-    bottom:-12px;
+    right:-12px;
+    top:0;
 
-    width:0;
-
-    height:0;
-
-    border-top:12px solid #7a001f;
-
-}
-
-.ribbon::before{
-
-    left:0;
-
-    border-right:12px solid transparent;
+    border-top:18px solid transparent;
+    border-bottom:18px solid transparent;
+    border-left:12px solid #7b001d;
 
 }
-
-.ribbon::after{
-
-    right:0;
-
-    border-left:12px solid transparent;
-
-}
-
-.ribbon:hover{
-
-    transform:translateY(4px);
-
-    background:#c40033;
-
-}
-        }
     </style>
 </head>
 <body>
@@ -203,32 +196,22 @@
         </ul>
     </div>
 
-<div class="scroll-container">
+<a href="critical.html" class="scroll-link">
 
-    <div class="scroll">
+    <div class="rolled-scroll">
 
-        <div class="scroll-top"></div>
+        <div class="roll-left"></div>
 
-        <div class="paper">
+        <div class="paper"></div>
+        <div class="roll-right"></div>
 
-            <h3>Royal Decree</h3>
-
-            <p>
-                
-                Pull the royal ribbon to reveal.
-            </p>
-
-            <a href="critical.html" class="ribbon">
-                🎀 Continue
-            </a>
-
+        <div class="ribbon">
+            Continue
         </div>
-
-        <div class="scroll-bottom"></div>
 
     </div>
 
-</div>
+</a>
 
 </body>
 </html>
