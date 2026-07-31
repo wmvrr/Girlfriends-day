@@ -170,6 +170,52 @@ Should Your Grace deem me worthy, I beseech you to continue reading what follows
 </div>
 
 </div>
+<script>
 
+const noButton=document.querySelector(".no-btn");
+
+noButton.addEventListener("click",()=>{
+
+    for(let i=0;i<70;i++){
+
+        const emoji=document.createElement("div");
+
+        emoji.innerHTML="🥺";
+
+        emoji.style.position="fixed";
+
+        emoji.style.left=Math.random()*100+"vw";
+
+        emoji.style.bottom="-50px";
+
+        emoji.style.fontSize=(20+Math.random()*30)+"px";
+
+        emoji.style.pointerEvents="none";
+
+        emoji.style.transition="transform 6s linear, opacity 6s";
+
+        document.body.appendChild(emoji);
+
+        setTimeout(()=>{
+
+            emoji.style.transform=
+            `translateY(-120vh)
+             rotate(${Math.random()*360}deg)`;
+
+            emoji.style.opacity="0";
+
+        },20);
+
+        setTimeout(()=>{
+
+            emoji.remove();
+
+        },6000);
+
+    }
+
+});
+
+</script>
 </body>
 </html>
