@@ -2,276 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sealed Letter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  height: 100vh;
-  background: #24160e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* ================= ENVELOPE ================= */
+body{
 
-.envelope {
-  position: relative;
-  width: 520px;
-  height: 340px;
-  background: #d0ae87;
-  border-radius: 10px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-  overflow: hidden;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#c8a97e;
+
+    font-family:'Cormorant Garamond',serif;
+
 }
 
-/* more intense paper grain + stains */
-.envelope::before {
-  content: "";
-  position: absolute;
-  inset: -15px;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(100,70,40,0.2), transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(90,60,30,0.18), transparent 50%),
-    radial-gradient(circle at 50% 90%, rgba(80,55,30,0.15), transparent 40%),
+/* Background Texture */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 20% 25%,rgba(90,60,30,.08),transparent 35%),
+
+    radial-gradient(circle at 80% 75%,rgba(90,60,30,.08),transparent 35%),
+
     repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.06),
-      rgba(255,255,255,0.06) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,0.04),
-      rgba(0,0,0,0.04) 1px,
-      transparent 1px,
-      transparent 4px
+    45deg,
+    rgba(255,255,255,.02),
+    rgba(255,255,255,.02) 2px,
+    transparent 2px,
+    transparent 6px
     );
-  filter: blur(1px);
-  pointer-events: none;
+
 }
 
-/* feathered worn edges */
-.envelope::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%);
-  pointer-events: none;
+/* Love Box */
+
+.box{
+
+    position:relative;
+
+    z-index:5;
+
+    width:600px;
+
+    max-width:90%;
+
+    padding:60px;
+
+    text-align:center;
+
+    background:#f3e2b8;
+
+    border:2px solid #8b5a2b;
+
+    border-radius:12px;
+
+    box-shadow:
+    inset 0 0 35px rgba(0,0,0,.15),
+    0 15px 40px rgba(0,0,0,.3);
+
 }
 
-/* ================= FLAPS ================= */
+.box h1{
 
-/* top flap (front) */
-.flap-top {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(0 0, 100% 0, 50% 40%);
-  background: #caa57d;
-  z-index: 5;
+    font-family:'UnifrakturCook',cursive;
+
+    font-size:72px;
+
+    color:#5a2f0d;
+
+    letter-spacing:3px;
+
 }
 
-/* bottom flap (behind) */
-.flap-bottom {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(0 100%, 100% 100%, 50% 40%);
-  background: #d6b48d;
-  z-index: 1;
+.box p{
+
+    margin-top:25px;
+
+    font-size:24px;
+
+    color:#4a2c16;
+
 }
 
-/* left flap */
-.flap-left {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(0 0, 50% 40%, 0 100%);
-  background: #c1a078;
-  z-index: 3;
+/* Hearts */
+
+.heart{
+
+    position:fixed;
+
+    bottom:-60px;
+
+    pointer-events:none;
+
+    animation:floatUp linear forwards;
+
 }
 
-/* right flap */
-.flap-right {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(100% 0, 100% 100%, 50% 40%);
-  background: #b89971;
-  z-index: 3;
+@keyframes floatUp{
+
+    from{
+
+        transform:translateY(0) rotate(0deg);
+
+        opacity:0;
+
+    }
+
+    10%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:
+        translateY(-120vh)
+        translateX(var(--drift))
+        rotate(360deg);
+
+        opacity:0;
+
+    }
+
 }
 
-/* ================= WAX SEAL ================= */
-
-.seal {
-  position: absolute;
-  top: 30%;          /* closer to top */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 95px;
-  height: 95px;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.seal svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 14px 26px rgba(0,0,0,0.7));
-  transition: transform 0.3s ease;
-}
-
-.seal:hover svg {
-  transform: scale(1.08);
-}
-
-/* ================= LETTER ================= */
-
-.letter {
-  display: none;
-  background: #f4e4c4;
-  width: min(90vw, 650px);
-  max-height: 85vh;
-  padding: 45px;
-  border-radius: 10px;
-  box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.18),
-    0 30px 60px rgba(0,0,0,0.6);
-  font-family: Arial 
-  color: #3a1e0f;
-  font-size: 20px;
-  line-height: 1.85;
-  overflow-y: auto;
-  animation: reveal 1s ease forwards;
-}
-
-@keyframes reveal {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.letter p { margin-bottom: 22px; }
-
-.sign {
-  margin-top: 35px;
-  text-align: right;
-  font-size: 22px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- ENVELOPE -->
-<div class="envelope" id="envelope">
-  <div class="flap-bottom"></div>
-  <div class="flap-left"></div>
-  <div class="flap-right"></div>
-  <div class="flap-top"></div>
+<div class="box">
 
-  <!-- TEXTURED BROWN WAX SEAL -->
-  <div class="seal" onclick="openLetter()">
-    <svg viewBox="0 0 200 200">
-      <defs>
-        <radialGradient id="waxGrad" cx="35%" cy="30%">
-          <stop offset="0%" stop-color="#7b4b2a"/>
-          <stop offset="60%" stop-color="#4a2915"/>
-          <stop offset="100%" stop-color="#2b150b"/>
-        </radialGradient>
+    <h1>I LOVE YOU</h1>
 
-        <filter id="waxNoise">
-          <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="4"/>
-          <feDisplacementMap in="SourceGraphic" scale="12"/>
-        </filter>
-      </defs>
+    <p>Happy Girlfriend's Day ❤️</p>
 
-      <path
-        d="M45,100
-           C35,65 75,35 120,45
-           C160,55 175,90 165,125
-           C155,165 110,175 75,160
-           C50,145 35,125 45,100Z"
-        fill="url(#waxGrad)"
-        filter="url(#waxNoise)"
-      />
-    </svg>
-  </div>
-</div>
-
-<!-- LETTER -->
-<div class="letter" id="letter">
-  <p>My Dearest,</p>
-
-  <p>
-    There has not been a single second when I haven not thought about you, about how it all happened and about 
-    how it all turned out. It should not have been like that, but that is how it is and that is how I am going
-    to live with it. After all this is how it has been turning out always, for four years.
-  </p>
-
-  <p>
-    I really wanted it to be you, wanted it to be us. But was there even an us from both the sides? 
-  </p>
-
-  <p>
-    I do have alot of complaints from you but they are just like your thoughts. They move from my heart to my eyes and
-    then back to my heart. There is no way these two would reach you because my hands are short and your lap is not expanded for 
-    them either
-  </p>
-  
-<p>
-  <i> daman uska jo hai daraz to ho
-  </i>
-</p> 
-
-  <p> 
-   <i> dast e aashiq rasaa nahi hota</i>
-  </p>
-
-  <p>
-    I will not let them reach you either except through this letter which you probably will not notice 
-    until it is too late or maybe all your life.
-  </p>
-
-
-    <p>
-    <i> kesi neend thi apni,
-    kese khawab the apnay,
-    aur ab gulaabon par,
-    neend wali aankhon par,
-    narm khu se khawabon par,
-    kion azaab tootay hain,
-    tumse kuch nahi kehna.</i>
-    
-  </p>
-
-  <div class="sign">
-    Yours always,<br>
-    Umer <br>
-          ١٩/٣/٢٠٢٦
-  </div>
 </div>
 
 <script>
-function openLetter() {
-  const envelope = document.getElementById("envelope");
-  const letter = document.getElementById("letter");
 
-  envelope.style.opacity = "0";
-  envelope.style.transform = "scale(0.92)";
+function createHeart(){
 
-  setTimeout(() => {
-    envelope.style.display = "none";
-    letter.style.display = "block";
-  }, 600);
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+
+    heart.innerHTML=Math.random()>0.5?"❤️":"💖";
+
+    heart.style.left=Math.random()*100+"vw";
+
+    heart.style.fontSize=(18+Math.random()*30)+"px";
+
+    heart.style.setProperty("--drift",(Math.random()*200-100)+"px");
+
+    heart.style.animationDuration=(5+Math.random()*4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },9000);
+
 }
+
+// Create hearts continuously
+setInterval(createHeart,180);
+
 </script>
 
 </body>
 </html>
-
