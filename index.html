@@ -1,203 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Greetings Glorious Lady</title>
+    <meta charset="UTF-8">
+    <title>Greetings</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        .box {
+            background-color: dark brown;
+            color: black;
+            width: 320px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 20px;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        .approve-btn {
+            margin-top: 15px;
+            background-color: red;
+            color: black;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 18px;
+            text-decoration: none;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
 
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    height:100vh;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
-
-    background:radial-gradient(circle at bottom,#1b2735,#090a0f 80%);
-}
-
-/* Canvas */
-
-canvas{
-    position:absolute;
-    inset:0;
-    z-index:0;
-}
-
-/* Message Box */
-
-.box{
-
-    position:relative;
-    z-index:2;
-
-    width:360px;
-
-    padding:30px;
-
-    text-align:center;
-
-    color:white;
-
-    border-radius:18px;
-
-    background:rgba(255,192,203,.12);
-
-    backdrop-filter:blur(15px);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    box-shadow:0 0 35px rgba(255,105,180,.25);
-
-}
-
-.box h2{
-
-    margin-bottom:15px;
-
-    color:#ffd6e8;
-
-}
-
-.box p{
-
-    line-height:1.6;
-
-}
-
-/* Buttons */
-
-.buttons{
-
-    display:flex;
-    gap:18px;
-    margin-top:25px;
-    z-index:2;
-
-}
-
-.btn{
-
-    text-decoration:none;
-
-    color:white;
-
-    padding:13px 28px;
-
-    border-radius:12px;
-
-    background:#ff4d88;
-
-    transition:.3s;
-
-    box-shadow:0 0 20px rgba(255,0,120,.4);
-
-}
-
-.btn:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:0 0 35px rgba(255,0,120,.8);
-
-}
-
-</style>
+        .approve-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
 </head>
-
 <body>
 
-<canvas id="stars"></canvas>
+    <div class="box">
+        <h2>Greetings Glorious Lady</h2>
+        <p>Your Humble Paramour wants an adudiecnce.</p>
+    </div>
 
-<div class="box">
-
-<h2>Greetings Glorious Lady</h2>
-
-<p>Your Humble Paramour wants an audience.</p>
-
-</div>
-
-<div class="buttons">
-
-<a href="patient.html" class="btn">Approve</a>
-
-<a href="nextpage.html" class="btn">Next Page →</a>
-
-</div>
-
-<script>
-
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-}
-
-resize();
-
-window.addEventListener("resize",resize);
-
-const stars=[];
-
-for(let i=0;i<250;i++){
-
-stars.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*1.8+0.3,
-
-alpha:Math.random()*0.8+0.2,
-
-phase:Math.random()*Math.PI*2
-
-});
-
-}
-
-let t=0;
-
-function animate(){
-
-t+=0.01;
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-stars.forEach(star=>{
-
-const a=star.alpha+Math.sin(t*5+star.phase)*0.3;
-
-ctx.fillStyle=`rgba(255,255,255,${a})`;
-
-ctx.beginPath();
-
-ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
-
-ctx.fill();
-
-});
-
-requestAnimationFrame(animate);
-
-}
-
-animate();
-
-</script>
+    <a href="audience.html" class="approve-btn">Approve</a>
 
 </body>
 </html>
+
